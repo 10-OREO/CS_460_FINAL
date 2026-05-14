@@ -47,60 +47,63 @@ def explain_problem():
 # =============================================================================
 
 def select_sources(spawn, relics, exit_node):
-    """
-    Parameters
-    ----------
-    spawn : node
-    relics : list[node]
-    exit_node : node
-
-    Returns
-    -------
-    list[node]
-        No duplicates. Order does not matter.
-
-    TODO
-    """
-    pass
+    # i started at the spawn as the first source
+    sources = [spawn]
+    # i then made sure that all the relics are included
+    for relic in relics:
+        if relic not in sources:
+            sources.append(relic)
+    return sources
 
 
 def run_dijkstra(graph, source):
-    """
-    Parameters
-    ----------
-    graph : dict[node, list[tuple[node, int]]]
-        graph[u] = [(v, cost), ...]. All costs are nonnegative integers.
-    source : node
+    # i initialied all nodes to infinity
+    dist = {}
 
-    Returns
-    -------
-    dict[node, float]
-        Minimum cost from source to every node in graph.
-        Unreachable nodes map to float('inf').
+    for node in graph:
+        dist[node] = float('inf')
 
-    TODO
-    """
-    pass
+    # this means that hte distance from the source to itself is 0
+    dist[source] = 0
 
+    # the priority q will store the current distane and current node
+    priority_q = [(0, source)]
+
+    while priority_q:
+        # this just gets the node with the smallest know distance
+        current_distance, node = heapq.heappop(priority_q)
+
+        # this skips all the q entries that happen to be outdated
+        if current_distance > dist[node]:
+            continue
+        
+        # this is used to explore neighbors :)
+        for neighbor, cost in graph[node]:
+            # this is basically the cost to reachthe neighbor using  
+            new_cost = current_distance + cost
+
+        if new_cost < dist[neighbor]:
+            # this makes sure to update the shortest know distance
+            dist[neighbor] = new_cost
+            # the updated distance is then pushed into heap
+            heapq.heappush(priority_q, (new_cost, neighbor))
+
+    return dist
 
 def precompute_distances(graph, spawn, relics, exit_node):
-    """
-    Parameters
-    ----------
-    graph : dict[node, list[tuple[node, int]]]
-    spawn : node
-    relics : list[node]
-    exit_node : node
 
-    Returns
-    -------
-    dict[node, dict[node, float]]
-        Nested structure supporting dist_table[u][v] lookups
-        for every source u your design requires.
-
-    TODO
-    """
     pass
+
+    dist_table = {}
+
+    # this makes sure to select all hte nodes that we should run dijkstra from
+    sources = select_sources(spawn, relics, exit_node)
+    
+    # dijkstra is ran from every source
+    for source in sources:
+        dist_table[source] = run_dijkstra(graph, source)
+
+    return dist_table
 
 
 # =============================================================================
@@ -117,7 +120,16 @@ def dijkstra_invariant_check():
 
     TODO
     """
-    return "TODO"
+    return """
+    3a. 
+        - Finalized nodes have their shortest path from the source
+        - Nonfinalized nodes store the best and shortest known path using finalized nodes
+    3b. 
+        - The invariant holds before the first iteration since the source begins at 0 and the other nodes at infinity
+        - finalizing the min-dist node is always correct since nonnegative edge weights make sure that the minimum unfinalized node are unable to improve later on.
+        - The invariant guarantees that all reachable nodes having the correct shortest path distance
+    3c. This matters for the Route Planner since the planner relies on the correct distances in order to compare the complete relic routes in an accurate fashion.
+    """
 
 
 # =============================================================================
@@ -134,7 +146,13 @@ def explain_search():
 
     TODO
     """
-    return "TODO"
+    return """
+    - The failure mode: The reason why greedy fails is because picking the cheapest immediate relic can result in being more expensive later on
+    - Counter-example setup: S -> B = 1, S -> C = 2, B -> D = 3, C -> D = 1, D -> T = 2 
+    - What greedy picks: Greddy will choose B since it happens to be the closest
+    - What optimal picks: S -> C -> D -> T. this has a cost of 5.
+    - Why greedy loses: Greedy loses since it will need to explore other relic order in order to be able to find a route that happens to be optimal
+    """
 
 
 # =============================================================================
@@ -142,26 +160,15 @@ def explain_search():
 # =============================================================================
 
 def find_optimal_route(dist_table, spawn, relics, exit_node):
-    """
-    Parameters
-    ----------
-    dist_table : dict[node, dict[node, float]]
-        Output of precompute_distances.
-    spawn : node
-    relics : list[node]
-        Every node in this list must be visited at least once.
-    exit_node : node
-        The route must end here.
+    # stores the best solution
+    # best[0] means best cost and best[1] means best relic order
+    best = [float('inf'), []]
+    remaining = set(relics)
 
-    Returns
-    -------
-    tuple[float, list[node]]
-        (minimum_fuel_cost, ordered_relic_list)
-        Returns (float('inf'), []) if no valid route exists.
+    # this is just a recursive search
+    _explore(dist_table, spawn, remaining, [], 0, exit_node, best)
 
-    TODO
-    """
-    pass
+    return best[0], best[1]
 
 
 def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,

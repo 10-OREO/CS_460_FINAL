@@ -35,8 +35,8 @@
 
 | Source Node Type | Why it is a source |
 |---|---|
-| _node type_ | _one-line reason_ |
-| _node type_ | _one-line reason_ |
+| Entrance node S | This is where the route begins. This means that distances from S to any other relic are needed |
+| Relic Chamber | The planenr must know the cheapest possible cost to every remaining relic as well as the exit |
 
 ### Part 2b: Distance Storage
 
@@ -44,20 +44,20 @@
 
 | Property | Your answer |
 |---|---|
-| Data structure name | |
-| What the keys represent | |
-| What the values represent | |
-| Lookup time complexity | |
-| Why O(1) lookup is possible | |
+| Data structure name | dist_tabl |
+| What the keys represent | the inner key represents an destination node, while the outer key represents a source node |
+| What the values represent | the values represent hte cheapest cost  |
+| Lookup time complexity | O(1)|
+| Why O(1) lookup is possible | hash table lookup is used |
 
 ### Part 2c: Precomputation Complexity
 
 > State the total complexity and show the arithmetic. Two to three lines max.
 
-- **Number of Dijkstra runs:** _your answer_
-- **Cost per run:** _your answer_
-- **Total complexity:** _your answer_
-- **Justification (one line):** _your answer_
+- **Number of Dijkstra runs:** k + 1
+- **Cost per run:** O(m log n)
+- **Total complexity:** O((k + 1)m log n)
+- **Justification (one line):** from S, dijkstra is ran once. it is then ran once again for every k relic
 
 ---
 
@@ -72,29 +72,29 @@
 > Do not copy the invariant text from the spec.
 
 - **For nodes already finalized (in S):**
-  _Your answer here._
+  Finalized nodes have their shortest path from the source
 
 - **For nodes not yet finalized (not in S):**
-  _Your answer here._
+  Nonfinalized nodes store the best and shortest known path using finalized nodes
 
 ### Part 3b: Why Each Phase Holds
 
 > One to two bullets per phase. Maintenance must mention nonnegative edge weights.
 
 - **Initialization : why the invariant holds before iteration 1:**
-  _Your answer here._
+  The invariant holds before the first iteration since the source begins at 0 and the other nodes at infinity
 
 - **Maintenance : why finalizing the min-dist node is always correct:**
-  _Your answer here._
+  finalizing the min-dist node is always correct since nonnegative edge weights make sure that the minimum unfinalized node are unable to improve later on.
 
 - **Termination : what the invariant guarantees when the algorithm ends:**
-  _Your answer here._
+  The invariant guarantees that all reachable nodes having the correct shortest path distance
 
 ### Part 3c: Why This Matters for the Route Planner
 
 > One sentence connecting correct distances to correct routing decisions.
 
-_Your answer here._
+This matters for the Route Planner since the planner relies on the correct distances in order to compare the complete relic routes in an accurate fashion.
 
 ---
 
@@ -105,17 +105,17 @@ _Your answer here._
 > State the failure mode. Then give a concrete counter-example using specific node names
 > or costs (you may use the illustration example from the spec). Three to five bullets.
 
-- **The failure mode:** _Your answer here._
-- **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _Your answer here._
-- **What optimal picks:** _Your answer here._
-- **Why greedy loses:** _Your answer here._
+- **The failure mode:** the reason why greedy fails is because picking the cheapest immediate relic can result in being more expensive later on
+- **Counter-example setup:** S -> B = 1, S -> C = 2, B -> D = 3, C -> D = 1, D -> T = 2
+- **What greedy picks:** Greddy will choose B since it happens to be the closest
+- **What optimal picks:** S -> C -> D -> T. this has a cost of 5.
+- **Why greedy loses:** Greedy loses since it will need to explore other relic order in order to be able to find a route that happens to be optimal
 
 ### What the Algorithm Must Explore
 
 > One bullet. Must use the word "order."
 
-- _Your answer here._
+- it must explore other orders. this is because it will not always choose the best route if it chooses the nest local choice
 
 ---
 
@@ -128,9 +128,9 @@ _Your answer here._
 
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location | | | |
-| Relics already collected | | | |
-| Fuel cost so far | | | |
+| Current location | current_loc | node | this is just the current location for where our recursive search happens to be|
+| Relics already collected | relics_visited_order | list[node] |  this is just the list of relics in order|
+| Fuel cost so far | cost_so_far | float | this is the cost of fuel by the current route |
 
 ### Part 5b: Data Structure for Visited Relics
 
@@ -139,17 +139,17 @@ _Your answer here._
 | Property | Your answer |
 |---|---|
 | Data structure chosen | |
-| Operation: check if relic already collected | Time complexity: |
-| Operation: mark a relic as collected | Time complexity: |
-| Operation: unmark a relic (backtrack) | Time complexity: |
-| Why this structure fits | |
+| Operation: check if relic already collected | Time complexity: O(1)|
+| Operation: mark a relic as collected | Time complexity: O(1) |
+| Operation: unmark a relic (backtrack) | Time complexity: O(1) |
+| Why this structure fits | this structure fits since fast remove and add checks are supported while we do recursive backtracking|
 
 ### Part 5c: Worst-Case Search Space
 
 > Two bullets.
 
-- **Worst-case number of orders considered:** _Your answer (in terms of k)._
-- **Why:** _One-line justification._
+- **Worst-case number of orders considered:** k!
+- **Why:** this is the worst case since the algorithm could face having to consider all alterations of k relics
 
 ---
 

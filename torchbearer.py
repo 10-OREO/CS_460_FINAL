@@ -82,17 +82,15 @@ def run_dijkstra(graph, source):
             # this is basically the cost to reachthe neighbor using  
             new_cost = current_distance + cost
 
-        if new_cost < dist[neighbor]:
-            # this makes sure to update the shortest know distance
-            dist[neighbor] = new_cost
-            # the updated distance is then pushed into heap
-            heapq.heappush(priority_q, (new_cost, neighbor))
+            if new_cost < dist[neighbor]:
+                # this makes sure to update the shortest know distance
+                dist[neighbor] = new_cost
+                # the updated distance is then pushed into heap
+                heapq.heappush(priority_q, (new_cost, neighbor))
 
     return dist
 
 def precompute_distances(graph, spawn, relics, exit_node):
-
-    pass
 
     dist_table = {}
 
@@ -240,23 +238,13 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
 # =============================================================================
 
 def solve(graph, spawn, relics, exit_node):
-    """
-    Parameters
-    ----------
-    graph : dict[node, list[tuple[node, int]]]
-    spawn : node
-    relics : list[node]
-    exit_node : node
 
-    Returns
-    -------
-    tuple[float, list[node]]
-        (minimum_fuel_cost, ordered_relic_list)
-        Returns (float('inf'), []) if no valid route exists.
+    # this makes sure to build the shortes path lookup table
+    dist_table = precompute_distances(graph, spawn, relics, exit_node)
 
-    TODO
-    """
-    pass
+    # this finds the optimal relic order
+    return find_optimal_route(dist_table, spawn, relics, exit_node)
+
 
 
 # =============================================================================

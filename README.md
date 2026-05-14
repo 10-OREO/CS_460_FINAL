@@ -17,13 +17,13 @@
 > per question. Each bullet should be 1-2 sentences max.
 
 - **Why a single shortest-path run from S is not enough:**
-  _Your answer here._
+  A single shortest path run from S is not sufficient since it only gives us the cost of the entrance of each node. It is unable to decide in what order to visit the relics while still reaching T.
 
 - **What decision remains after all inter-location costs are known:**
-  _Your answer here._
+  The order that relics must be visited in is the structural desicion that remains
 
 - **Why this requires a search over orders (one sentence):**
-  _Your answer here._
+  The reason why this is a search over orders is due to the fact that we are able to produce different fuel cost due to differing orders and sequences of relics to visit
 
 ---
 

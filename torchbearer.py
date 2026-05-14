@@ -36,7 +36,10 @@ def explain_problem():
     """
     return """
     - A single shortest path run from S is not sufficient since it only gives us the cost of the entrance of each node. It is unable to decide in what order to visit the relics while still reaching T. 
+    - The order that relics must be visited in is the structural desicion that remains
+    - The reason why this is a search over orders is due to the fact that we are able to produce different fuel cost due to differing orders and sequences of relics to visit 
     """
+
 
 
 # =============================================================================

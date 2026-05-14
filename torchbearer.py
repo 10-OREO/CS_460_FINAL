@@ -34,7 +34,9 @@ def explain_problem():
 
     TODO
     """
-    return "TODO"
+    return """
+    - A single shortest path run from S is not sufficient since it only gives us the cost of the entrance of each node. It is unable to decide in what order to visit the relics while still reaching T. 
+    """
 
 
 # =============================================================================

@@ -1,7 +1,7 @@
 # Development Log – The Torchbearer
 
-**Student Name:** ___________________________
-**Student ID:** ___________________________
+**Student Name:** Chris Lepe Tenorio
+**Student ID:** 827762800
 
 > Instructions: Write at least four dated entries. Required entry types are marked below.
 > Two to five sentences per entry is sufficient. Write entries as you go, not all in one
@@ -10,13 +10,12 @@
 
 ---
 
-## Entry 1 – [Date]: Initial Plan
+## Entry 1 – May 13, 2026 1:30 AM: Initial Plan
 
 > Required. Write this before writing any code. Describe your plan: what you will
 > implement first, what parts you expect to be difficult, and how you plan to test.
-
-_Your entry here._
-
+ 
+I made sure to read all the instructions. Afterwards, I felt that in order to find the solution, we would need to follow 2 paths. Those are, shortest-path precomputation and search over relic orders. First i will use Djikstras. Next I will store the instances in a dictionary. I feel as though this will be helpful for a fast lookup. I feel that the most difficult part, and the part that I will most likely struggle with is the recursive search as well as the pruning logic. This is mainly because it must avoid skipping the optimal solution.
 ---
 
 ## Entry 2 – [Date]: [Short description]

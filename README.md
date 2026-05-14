@@ -159,23 +159,24 @@ This matters for the Route Planner since the planner relies on the correct dista
 
 > Three bullets.
 
-- **What is tracked:** _Your answer here._
-- **When it is used:** _Your answer here._
-- **What it allows the algorithm to skip:** _Your answer here._
+- **What is tracked:** what is being tracked is the relic order that happend to produce the best complete route 
+- **When it is used:** it is used after a full route to the exit was completed as well as prior to a branch expanding.
+- **What it allows the algorithm to skip:** the algorithm skips due to routes that happend to be unable to be the current best solution
 
 ### Part 6b: Lower Bound Estimation
 
 > Three bullets.
 
-- **What information is available at the current state:** _Your answer here._
-- **What the lower bound accounts for:** _Your answer here._
-- **Why it never overestimates:** _Your answer here._
+- **What information is available at the current state:** it knows thew current location, as well as the remainig relics, exit node, shortest path distances, and the cost so far
+- **What the lower bound accounts for:** it accounts for adding the cheapest posible next move and the current cost
+- **Why it never overestimates:** since it is optimistic, it is unable to be larger than the remainder of the rout cost
 
 ### Part 6c: Pruning Correctness
 
 > One to two bullets. Explain why pruning is safe.
 
-- _Your answer here._
+- It is safe since a branch will be  abandoned only when the optimistic lower bound happens to be at least as large as the best complete route that was found so far
+
 
 ---
 
@@ -183,4 +184,4 @@ This matters for the Route Planner since the planner relies on the correct dista
 
 > Bullet list. If none beyond lecture notes, write that.
 
-- _Your references here._
+- Lectures, and Lecture Notes

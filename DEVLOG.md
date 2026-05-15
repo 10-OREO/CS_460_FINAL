@@ -3,11 +3,6 @@
 **Student Name:** Chris Lepe Tenorio
 **Student ID:** 827762800
 
-> Instructions: Write at least four dated entries. Required entry types are marked below.
-> Two to five sentences per entry is sufficient. Write entries as you go, not all in one
-> sitting. Graders check that entries reflect genuine work across multiple sessions.
-> Delete all blockquotes before submitting.
-
 ---
 
 ## Entry 1 – May 14, 2026 3:30 AM: Initial Plan
@@ -17,9 +12,7 @@ I made sure to read all the instructions. Afterwards, I felt that in order to fi
 
 ## Entry 2 – May 14, 2026 6:48 AM: Parts 2 - 5
 
-> Required. At least one entry must describe a bug, wrong assumption, or design change
-> you encountered. Describe what went wrong and how you resolved it.
-I implemented source selection. I used the entrance as well as every relic chambers as Dijkstra sources. Then I made sure to use a priority queue. This priority queue had `heapq`. Basically what it did was initialized unreachable nodes to infinity. I stored all results in `dist_table`. `dist_table[u][v]` gives the cheapest known cost from u to v. 
+I implemented source selection. I used the entrance as well as every relic chambers as Dijkstra sources. Then I made sure to use a priority queue. This priority queue had `heapq`. Basically what it did was initialized unreachable nodes to infinity. I stored all of the results in `dist_table`. Additionally, `dist_table[u][v]` gives us the cheapest known cost frm u to v. 
 
 ---
 
@@ -30,17 +23,12 @@ For my search design, my main priority was choosing the next relic. I made sure 
 
 ## Entry 4 – May 14, 2026 12:15 PM: Post-Implementation Reflection
 
-> Required. Written after your implementation is complete. Describe what you would
-> change or improve given more time.
-
-After I finished up with the implementation and made sure that it was complete. The I tested the provided examples in order to see if my work was right. I then confirmed that the expected costs were in fact returned properly and as expected. If I gave my self a bit more time, i feel that I would be able to make some improvements. Those being improving the lower bound. This way, it would account for more of the remaining route. I feel as though that would prune more branches. Pruning more branches would the lead to making algorithm faster for a larger k value. 
+After I finished up with the implementation, I then made sure that it wsa completed properly. The I tested the provided examples in order to see if my work was right. I then confirmed that the expected costs were in fact returned properly and as expected. If I gave my self a bit more time, i feel that I would be able to make some improvements. Those being improving the lower bound. This way, it would account for more of the remaining route. I feel as though that would prune more branches. Pruning more branches would the lead to making algorithm faster for a larger k value. 
 
 
 ---
 
-## Final Entry – [Date]: Time Estimate
-
-> Required. Estimate minutes spent per part. Honesty is expected; accuracy is not graded.
+## Final Entry – May 14, 2026 12:33 PM: Time Estimate
 
 | Part | Estimated Hours |
 |---|---|

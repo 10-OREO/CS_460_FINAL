@@ -135,15 +135,6 @@ def dijkstra_invariant_check():
 # =============================================================================
 
 def explain_search():
-    """
-    Returns
-    -------
-    str
-        Your Part 4 README answers, written as a string.
-        Must match what you wrote in README Part 4.
-
-    TODO
-    """
     return """
     - The failure mode: The reason why greedy fails is because picking the cheapest immediate relic can result in being more expensive later on
     - Counter-example setup: S -> B = 1, S -> C = 2, B -> D = 3, C -> D = 1, D -> T = 2 
